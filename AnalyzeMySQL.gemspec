@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = AnalyzeMySQL::VERSION
   spec.authors       = ['Mario Mueller']
   spec.email         = %w(mario@xenji.com)
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{AnalyzeMySQL comes from the need to get a detailed analysis of a bigger MySQL database.}
+  spec.summary       = %q{AnalyzeMySQL is an extensible framework for MySQL schema analysis.}
   spec.homepage      = ''
   spec.license       = 'MIT'
 
@@ -19,6 +19,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency 'bundler', '~> 1.3'
-  spec.add_development_dependency 'rake',
+  spec.add_development_dependency 'rake'
   spec.add_development_dependency 'mysql2'
 end
