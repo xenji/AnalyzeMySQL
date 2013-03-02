@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+THIS_FILE = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
+lib = File.expand_path('../../lib', THIS_FILE)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
+require 'AnalyzeMySQL'
+require 'optparse'
+require 'yaml'
+
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{__FILE__} [options]"
+
+  opts.on('-v', '--[no-]verbose', 'Run verbosely') do |v|
+    options[:verbose] = v
+  end
+
+  opts.on('-c', '--config', 'The config file to use. Take a look at --init to create one') do |c|
+    options[:config] = c
+  end
+
+  opts.on('-i', '--init', 'Creates a new config.yml from an example file.') do |i|
+
+    conf_file = File.expand_path('../conf/config.example.yml', THIS_FILE)
+    puts conf_file.methods
+    # Dir.getwd
+    puts conf_file
+  end
+
+
+  opts.on_tail('--version', 'Show version') do
+    puts AnalyzeMySQL::VERSION
+    exit
+  end
+end.parse!

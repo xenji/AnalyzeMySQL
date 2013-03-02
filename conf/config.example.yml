@@ -1,0 +1,13 @@
+databases:
+  - test
+
+tables:
+  include:
+    - all
+  exclude:
+    - /some.*sort[of] weired_regex$/
+
+active_analytics:
+  - col_size_fits_content
+  - join_match_col_defintion
+
