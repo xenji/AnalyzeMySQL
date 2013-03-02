@@ -14,12 +14,8 @@ you to write your own additions, based on the structure of your database.
 
 In trivago's case we follow the rule of explicit naming:
 
-- Table: `foo`
-- PK: `foo_id`
-
-- Other table: `bar`
-- PK: `bar_id`
-- IDX_foo: `foo_id`
+- Table: `foo`, PK: `foo_id`
+- Other table: `bar`, PK: `bar_id`, IDX_foo: `foo_id`
 
 `bar.foo_id` is the join col. for `foo.foo_id`, which roughly means they must have the same col definition. This check
 is called `join_match_col_defintion` and you can find more of them in the wiki.

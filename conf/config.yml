@@ -1,0 +1,29 @@
+databases:
+  - ams_test
+
+access:
+  ams_test:
+    user: root
+    pass:
+    host: localhost
+    port: 3306
+
+tables:
+  include:
+    - all
+  exclude:
+#   - /some.*sort[of] weired_regex$/
+
+active_analytics:
+  - col_size_fits_content
+  - join_match_col_defintion
+
+settings:
+  col_size_fits_content:
+    scan: [tinyint, smallint, int, bigint, varchar, text]
+    mangle: 50 # start to cry when the field size is more than 50% bigger than the biggest value
+
+  join_match_col_definition:
+    strategy: match_colname # alternatively you can use "foreign_key"
+
+# Add your own plugins here
