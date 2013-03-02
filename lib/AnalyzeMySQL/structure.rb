@@ -1,8 +1,8 @@
-require 'structure/schema'
-require 'structure/table'
-require 'structure/column'
+require 'AnalyzeMySQL/structure/schema'
+require 'AnalyzeMySQL/structure/table'
+require 'AnalyzeMySQL/structure/column'
 
-module AnalyseMySql
+module AnalyzeMySQL
   module Structure
     module Sizes
       COL_TYPES = {

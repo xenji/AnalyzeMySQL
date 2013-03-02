@@ -1,11 +1,14 @@
 require 'AnalyzeMySQL/version'
 require 'AnalyzeMySQL/structure'
-module AnalyzeMySQL
-  def configure(params)
+require 'yaml'
+require 'mysql2'
 
+module AnalyzeMySQL
+  def self.conf(params)
+    YAML.load_file params[:config]
   end
 
-  def exec(conf)
+  def self.run(conf)
     conf['databases'].each do |db|
       acc = conf['access'][db]
       conn = Mysql2::Client.new(
@@ -16,7 +19,8 @@ module AnalyzeMySQL
           :flags => Mysql2::Client::MULTI_STATEMENTS
       )
 
-      # Do smth
+      s = AnalyzeMySQL::Structure::Schema.new(conn, conf, db)
+
     end
   end
 end

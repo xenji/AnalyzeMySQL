@@ -1,6 +1,5 @@
 module AnalyzeMySQL
   module Structure
-
     class Column
       def initialize(name, type, nullable, key, default, extra)
         @name = name
@@ -16,7 +15,7 @@ module AnalyzeMySQL
       end
 
       def parse_type(type)
-        AnalyzeMySQL::Structure::COL_TYPES.each do |coltype, infoset|
+        AnalyzeMySQL::Structure::Sizes::COL_TYPES.each do |coltype, infoset|
           pat_match = infoset[:pattern].match type
           unless pat_match == nil
             @type = coltype

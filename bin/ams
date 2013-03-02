@@ -5,21 +5,18 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'AnalyzeMySQL'
 require 'optparse'
-require 'yaml'
 
 
-options = {}
+options = {
+    :config => File.expand_path('conf/config.yml', Dir.getwd)
+}
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{__FILE__} [options]"
 
-  opts.on('-v', '--[no-]verbose', 'Run verbosely') do |v|
-    options[:verbose] = v
-  end
-
-  opts.on('-c', '--config', 'The config file to use. Take a look at --init to create one') do |c|
-    options[:config] = c
-  end
+  #opts.on('-v', '--[no-]verbose', 'Run verbosely') do |v|
+  #  options[:verbose] = v
+  #end
 
   opts.on('-i', '--init', 'Creates a new config.yml from an example file.') do |i|
 
@@ -35,3 +32,6 @@ OptionParser.new do |opts|
     exit
   end
 end.parse!
+
+conf = AnalyzeMySQL::conf(options)
+AnalyzeMySQL::run(conf)
