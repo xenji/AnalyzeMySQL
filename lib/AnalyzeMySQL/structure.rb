@@ -1,3 +1,7 @@
+require 'structure/schema'
+require 'structure/table'
+require 'structure/column'
+
 module AnalyseMySql
   module Structure
     module Sizes

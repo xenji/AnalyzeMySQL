@@ -21,6 +21,7 @@ module AnalyzeMySQL
       def refresh_cache
         meta_definition
         col_definition
+        #index_definition
       end
 
       def meta_definition
@@ -55,7 +56,7 @@ module AnalyzeMySQL
 
       def index_definition
         @conn.query("SHOW INDEX FROM #@name").each do |row|
-          @keys[]
+
         end
       end
     end
