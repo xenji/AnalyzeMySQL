@@ -12,7 +12,7 @@ tables:
   include:
     - all
   exclude:
-#   - /some.*sort[of] weired_regex$/
+#   - table_name
 
 active_analytics:
   - col_size_fits_content
