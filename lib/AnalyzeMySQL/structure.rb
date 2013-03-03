@@ -7,7 +7,7 @@ module AnalyzeMySQL
     module Sizes
       COL_TYPES = {
           :tinyint => {
-              :patten => /^tinyint/i,
+              :pattern => /^tinyint/i,
               :unsigned => 255,
               :signed_lo => -128,
               :signed_hi => 127,
@@ -15,15 +15,15 @@ module AnalyzeMySQL
               :max => false
           },
           :smallint => {
-              :patten => /^smallint/i,
+              :pattern => /^smallint/i,
               :unsigned => 65_535,
               :signed_lo => -32_768,
               :signed_hi => 32_767,
               :sized => false,
               :max => false
           },
-          :patten => /^mediumint/i,
           :mediumint => {
+              :pattern => /^mediumint/i,
               :unsigned => 16_777_215,
               :signed_lo => -8_388_608,
               :signed_hi => 8_388_607,
@@ -31,7 +31,7 @@ module AnalyzeMySQL
               :max => false
           },
           :int => {
-              :patten => /^int/i,
+              :pattern => /^int/i,
               :unsigned => 4_294_967_295,
               :signed_lo => -2_147_483_648,
               :signed_hi => 2_147_483_647,
@@ -39,7 +39,7 @@ module AnalyzeMySQL
               :max => false
           },
           :bigint => {
-              :patten => /^bigint/i,
+              :pattern => /^bigint/i,
               :unsigned => 18_446_744_073_709_551_615,
               :signed_lo => -9_223_372_036_854_775_808,
               :signed_hi => 9_223_372_036_854_775_807,
@@ -48,31 +48,31 @@ module AnalyzeMySQL
           },
 
           :char => {
-              :patten => /^char\((\d+)\)/i,
+              :pattern => /^char\((\d+)\)/i,
               :sized => true,
               :max => false
           },
 
           :varchar => {
-              :patten => /^varchar\((\d+)\)/i,
+              :pattern => /^varchar\((\d+)\)/i,
               :sized => true,
               :max => false
           },
 
           :tinytext => {
-              :patten => /^tinytext$/i,
+              :pattern => /^tinytext$/i,
               :max => 255,
               :sized => false
           },
 
           :mediumtext => {
-              :patten => /^mediumtext$/i,
+              :pattern => /^mediumtext$/i,
               :max => 16_777_215,
               :sized => false
           },
 
           :text => {
-              :patten => /^text$/i,
+              :pattern => /^text$/i,
               :max => 4_294_967_295,
               :sized => false
           }

@@ -14,9 +14,12 @@ tables:
   exclude:
 #   - table_name
 
+plugin_paths:
+# - AnalyzeMySQL/plugins # Add your paths here. Relative paths are resolved from the current working directory.
+
 active_analytics:
   - col_size_fits_content
-  - join_match_col_defintion
+  #- join_match_col_defintion
 
 settings:
   col_size_fits_content:

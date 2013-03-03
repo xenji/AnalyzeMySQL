@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 THIS_FILE = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
 lib = File.expand_path('../../lib', THIS_FILE)
+plugins= File.expand_path('../../lib/AnalyzeMySQL/plugins', THIS_FILE)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+$LOAD_PATH.unshift(plugins) unless $LOAD_PATH.include?(plugins)
 
 require 'AnalyzeMySQL'
 require 'optparse'

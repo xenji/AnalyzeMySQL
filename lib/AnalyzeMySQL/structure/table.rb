@@ -47,7 +47,7 @@ module AnalyzeMySQL
 
       def col_definition
         @conn.query("DESCRIBE #@name").each do |row|
-          @cols[row['Field'].to_sym] = AnalyzeMySQL::Structure::Column.new(
+          @cols[row['Field']] = AnalyzeMySQL::Structure::Column.new(
               row['Field'], row['Type'], row['Null'],
               row['Key'], row['Default'], row['Extra']
           )

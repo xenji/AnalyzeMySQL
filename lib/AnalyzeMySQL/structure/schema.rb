@@ -34,8 +34,9 @@ module AnalyzeMySQL
           puts "Table #{table} is not included in the includes-list. Skipping it.".light_yellow
           return false
         end
+
         if use_all
-          puts 'All tables included, messages per table will be skipped.'.light_green if use_all
+          puts "All tables mode selected, using #{table}.".light_green if use_all
           return true
         end
 

@@ -5,7 +5,22 @@ require 'mysql2'
 
 module AnalyzeMySQL
   def self.conf(params)
-    YAML.load_file params[:config]
+    conf = YAML.load_file params[:config]
+
+    unless conf['plugin_paths'].nil?
+      conf['plugin_paths'].each do |dir|
+        dir = dir[0] == '/' ? dir : File.expand_path(dir, Dir.getwd)
+        $LOAD_PATH.unshift(dir) unless $LOAD_PATH.include? dir
+      end
+    end
+
+    unless conf['active_analytics'].nil?
+      conf['active_analytics'].each do |file|
+        require file + '.rb'
+      end
+    end
+
+    conf
   end
 
   def self.run(conf)
@@ -21,6 +36,7 @@ module AnalyzeMySQL
 
       s = AnalyzeMySQL::Structure::Schema.new(conn, conf, db)
 
+      puts s.tables['foo'].cols.inspect
     end
   end
 end
