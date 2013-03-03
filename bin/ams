@@ -7,27 +7,24 @@ $LOAD_PATH.unshift(plugins) unless $LOAD_PATH.include?(plugins)
 
 require 'AnalyzeMySQL'
 require 'optparse'
-
-
+require 'fileutils'
+require 'colorize'
+puts $LOAD_PATH
 options = {
     :config => File.expand_path('conf/config.yml', Dir.getwd)
 }
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{__FILE__} [options]"
-
-  #opts.on('-v', '--[no-]verbose', 'Run verbosely') do |v|
-  #  options[:verbose] = v
-  #end
-
   opts.on('-i', '--init', 'Creates a new config.yml from an example file.') do |i|
+    conf_file = File.expand_path('../../conf/config.yml', THIS_FILE)
 
-    conf_file = File.expand_path('../conf/config.example.yml', THIS_FILE)
-    puts conf_file.methods
-    # Dir.getwd
-    puts conf_file
+    puts 'Creating config folder'.green
+    Dir.mkdir(File.expand_path(Dir.getwd, 'conf')) unless Dir.exists? File.absolute_path(Dir.getwd, 'conf')
+
+    puts 'Copying sample config to current working directory...'.green
+    FileUtils.cp(conf_file, File.expand_path(Dir.getwd, 'conf')) unless File.exists? File.expand_path(Dir.getwd, 'conf/config.yml')
   end
-
 
   opts.on_tail('--version', 'Show version') do
     puts AnalyzeMySQL::VERSION
