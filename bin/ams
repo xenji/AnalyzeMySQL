@@ -9,7 +9,7 @@ require 'AnalyzeMySQL'
 require 'optparse'
 require 'fileutils'
 require 'colorize'
-puts $LOAD_PATH
+
 options = {
     :config => File.expand_path('conf/config.yml', Dir.getwd)
 }
@@ -19,11 +19,20 @@ OptionParser.new do |opts|
   opts.on('-i', '--init', 'Creates a new config.yml from an example file.') do |i|
     conf_file = File.expand_path('../../conf/config.yml', THIS_FILE)
 
-    puts 'Creating config folder'.green
-    Dir.mkdir(File.expand_path(Dir.getwd, 'conf')) unless Dir.exists? File.absolute_path(Dir.getwd, 'conf')
+    if Dir.exists? File.absolute_path(Dir.getwd, 'conf')
+      puts 'Config folder already exists, skipping creation'.yellow
+    else
+      puts 'Creating config folder'.green
+      Dir.mkdir(File.expand_path(Dir.getwd, 'conf'))
+    end
 
-    puts 'Copying sample config to current working directory...'.green
-    FileUtils.cp(conf_file, File.expand_path(Dir.getwd, 'conf')) unless File.exists? File.expand_path(Dir.getwd, 'conf/config.yml')
+    if File.exists? File.expand_path(Dir.getwd, 'conf/config.yml')
+      puts 'Config file does already exist, skipping creation'.yellow
+    else
+      puts 'Copying sample config to current working directory...'.green
+      FileUtils.cp(conf_file, File.expand_path(Dir.getwd, 'conf'))
+    end
+    exit
   end
 
   opts.on_tail('--version', 'Show version') do
@@ -32,5 +41,9 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-conf = AnalyzeMySQL::conf(options)
-AnalyzeMySQL::run(conf)
+if File.exists? File.expand_path(Dir.getwd, 'conf/config.yml')
+  conf = AnalyzeMySQL::conf(options)
+  AnalyzeMySQL::run(conf)
+else
+  puts 'No configuration found. You might want to run `ams --init` first'.red
+end
