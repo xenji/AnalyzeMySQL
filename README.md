@@ -21,36 +21,20 @@ In trivago's case we follow the rule of explicit naming:
 is called `join_match_col_defintion` and you can find more of them in the wiki.
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'AnalyzeMySQL'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install AnalyzeMySQL
-
-When the gem finished installing, please create a new folder for your project and run
-
-    $ ams --init
-
-This will create a new config file in the current working directory by copying it from the current example file.
+Install it by just cloning it. It is not yet ready to be released as installable gem. Edit the configuration to fit your
+settings. The installation routine will change in the future, but I want to focus on stability first.
 The config file enables you to declare everything you want and need, including a directory to put the reports and
 a directory to include when searching for plugins.
 
 Just run
+    $ bundle install
+    $ bin/ams
 
-    $ ams
+ATTENTION: Depending on the plugins you choose, you will set the database under high load.
 
-in the same directory where the config file resides to start the test run.
+## Plugins
 
-## Usage
-
-TODO: Write usage instructions here
+Put your plugins in `lib/AnalyzeMySQL/plugins` and use the `col_size_fits_content.rb` as an example.
 
 ## Contributing
 
