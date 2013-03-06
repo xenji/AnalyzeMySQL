@@ -25,7 +25,8 @@ settings. The installation routine will change in the future, but I want to focu
 The config file enables you to declare everything you want and need, including a directory to put the reports and
 a directory to include when searching for plugins.
 
-Just run
+Just run:
+
     $ bundle install
     $ bin/ams
 
