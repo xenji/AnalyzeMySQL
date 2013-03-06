@@ -1,8 +1,10 @@
 require 'AnalyzeMySQL/version'
 require 'AnalyzeMySQL/structure'
+require 'AnalyzeMySQL/report/pool'
 require 'yaml'
 require 'mysql2'
 require 'plugman'
+require 'logger'
 
 module AnalyzeMySQL
   class App
@@ -30,6 +32,16 @@ module AnalyzeMySQL
         schema = AnalyzeMySQL::Structure::Schema.new(conn, conf, db)
         @plugins.notify(:configure!, conf, conn)
         @plugins.notify(:schema_ready, schema)
+
+        rpool = AnalyzeMySQL::Report::Pool.new
+        @plugins.notify(:contribute_report, rpool)
+
+        # This is very simple, but enough to test it.
+        # In the future we should notify output plugins here
+        log = ::Logger.new(STDOUT)
+        rpool.report.each do |msg|
+          log.warn msg
+        end
       end
     end
   end

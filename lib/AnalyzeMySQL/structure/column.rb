@@ -1,6 +1,7 @@
 module AnalyzeMySQL
   module Structure
     class Column
+      attr_reader :name, :nullable, :default, :extra, :size, :sized, :max, :signed,:zerofill, :type
       def initialize(name, type, nullable, key, default, extra)
         @name = name
         @nullable = nullable == "NO" ? false : true
@@ -23,7 +24,7 @@ module AnalyzeMySQL
             @max = infoset[:max] unless infoset[:max].nil?
             @zerofill = !AnalyzeMySQL::Structure::Sizes::COL_ATTRS[:zerofill][:pattern].match(type).nil?
             @signed = AnalyzeMySQL::Structure::Sizes::COL_ATTRS[:unsigned][:pattern].match(type).nil?
-            @size = pat_match[1] if @sized
+            @size = pat_match[1].to_i if @sized
 
             unless @sized or @max
               @size = @signed ? infoset[:signed_hi] : infoset[:unsigned]

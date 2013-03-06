@@ -1,4 +1,4 @@
-require 'colorize'
+require 'logger'
 module AnalyzeMySQL
   module Structure
     class Schema
@@ -9,6 +9,7 @@ module AnalyzeMySQL
         @conn = conn
         @conf = conf
         @tables = {}
+        @log = ::Logger.new(STDOUT)
         refresh_cache
       end
 
@@ -21,22 +22,28 @@ module AnalyzeMySQL
       end
 
       def table_included?(table)
-        has_all = !@conf['tables']['include'].nil? and @conf['tables']['include'].include? 'all'
+
+        has_all = (!@conf['tables']['include'].nil? and @conf['tables']['include'].include?('all'))
         has_excludes = !@conf['tables']['exclude'].nil?
         use_all = (has_all and !has_excludes)
 
         if has_all and !@conf['tables']['exclude'].nil? and !@conf['tables']['exclude'].include? table
-          puts "Table #{table} is included in `all` and not excluded. Using it.".light_green
+          @log.info "Table #{table} is included in `all` and not excluded. Using it."
           return true
         end
 
         if !has_all and !@conf['tables']['include'].include? table
-          puts "Table #{table} is not included in the includes-list. Skipping it.".light_yellow
+          @log.debug "Table #{table} is not included in the includes-list. Skipping it."
           return false
         end
 
+        if !has_all and @conf['tables']['include'].include? table
+          @log.info "Table #{table} is included in the includes-list. Using it."
+          return true
+        end
+
         if use_all
-          puts "All tables mode selected, using #{table}.".light_green if use_all
+          @log.debug "All tables mode selected, using #{table}" if use_all
           return true
         end
 
