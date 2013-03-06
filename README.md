@@ -2,23 +2,22 @@
 
 This little tool (or you might call it framework someday) intends to help with analyzing MySQL table structures.
 I've built it for trivago, who have a primary MySQL database of > 280 tables with max row counts of (roughly)
-100,000,000 for the bigger tables. This gives you a certain perspective on data. Joins can get expensive when
-you try to create them by using two fields of different data types (signed int and unsigned bigint for example).
-In such cases MySQL tends to cast values into one of the formats, which is an unnecessary loss of performance.
+100,000,000 for the bigger tables.
 
-AnalyzeMySQL (ams) tends to help by objectifying the tables data structure and handling it via an API to each
-plugin, each plugin can do it's work and contribute to a final report. This keeps things scalable and enables
+AnalyzeMySQL (ams) tends to help by objectifying the tables data structure and handling it via an API to every
+plugin. Now each plugin can do it's work and contribute to a final report. This keeps things scalable and enables
 you to write your own additions, based on the structure of your database.
 
 ## A first check
 
-In trivago's case we follow the rule of explicit naming:
+`col_size_fits_contet` is the first plugin. It checks the max(col) value against the column's definition and mangles the
+definition if the value differs more than the configured percentage.
 
-- Table: `foo`, PK: `foo_id`
-- Other table: `bar`, PK: `bar_id`, IDX_foo: `foo_id`
+Example:
 
-`bar.foo_id` is the join col. for `foo.foo_id`, which roughly means they must have the same col definition. This check
-is called `join_match_col_defintion` and you can find more of them in the wiki.
+```
+WARN -- : Table: bar / Column: foo :: maximum column content 907564 is below 50% of it's max defined value of 9223372036854775807
+```
 
 ## Installation
 Install it by just cloning it. It is not yet ready to be released as installable gem. Edit the configuration to fit your
