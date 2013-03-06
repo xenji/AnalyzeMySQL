@@ -42,8 +42,11 @@ OptionParser.new do |opts|
 end.parse!
 
 if File.exists? File.expand_path(Dir.getwd, 'conf/config.yml')
-  conf = AnalyzeMySQL::conf(options)
-  AnalyzeMySQL::run(conf)
+  app = AnalyzeMySQL::App.new
+
+  conf = app.conf(options)
+  app.run(conf)
+
 else
   puts 'No configuration found. You might want to run `ams --init` first'.red
 end
