@@ -27,8 +27,10 @@ a directory to include when searching for plugins.
 
 Just run:
 
+```
     $ bundle install
     $ bin/ams
+```
 
 ATTENTION: Depending on the plugins you choose, you will set the database under high load.
 
