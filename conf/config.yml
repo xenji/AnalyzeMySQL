@@ -19,7 +19,7 @@ plugin_paths:
 
 settings:
   col_size_fits_content:
-    scan: [tinyint, smallint, int, bigint, varchar, text]
+    scan: [smallint, int, bigint, varchar, char, text] # do not include tinyint, it leads to too many false positives
     mangle: 50 # start to cry when the field size is more than 50% bigger than the biggest value
 
   join_match_col_definition:

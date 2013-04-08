@@ -14,7 +14,7 @@ module AnalyzeMySQL
       end
 
       def refresh_cache
-        @conn.query("USE #@name")
+        @conn.query("USE #{@name}")
         @conn.query('SHOW TABLES').each do |v|
           table = v.first[1]
           @tables[table] = AnalyzeMySQL::Structure::Table.new(@conn, @conf, table) if table_included? table
@@ -23,11 +23,11 @@ module AnalyzeMySQL
 
       def table_included?(table)
 
-        has_all = (!@conf['tables']['include'].nil? and @conf['tables']['include'].include?('all'))
+        has_all = (!@conf['tables']['include'].nil? && @conf['tables']['include'].include?('all'))
         has_excludes = !@conf['tables']['exclude'].nil?
-        use_all = (has_all and !has_excludes)
+        use_all = (has_all && !has_excludes)
 
-        if has_all and !@conf['tables']['exclude'].nil? and !@conf['tables']['exclude'].include? table
+        if has_all && !@conf['tables']['exclude'].nil? && !@conf['tables']['exclude'].include?(table)
           @log.info "Table #{table} is included in `all` and not excluded. Using it."
           return true
         end

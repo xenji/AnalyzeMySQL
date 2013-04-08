@@ -21,11 +21,11 @@ module AnalyzeMySQL
       def refresh_cache
         meta_definition
         col_definition
-        #index_definition
+        index_definition
       end
 
       def meta_definition
-        @conn.query("SHOW TABLE STATUS LIKE '#@name'").each do |row|
+        @conn.query("SHOW TABLE STATUS LIKE '#{@name}'").each do |row|
           @meta[:engine] = row['Engine']
           @meta[:version] = row['Version']
           @meta[:row_format] = row['Row_format']
@@ -46,7 +46,7 @@ module AnalyzeMySQL
       end
 
       def col_definition
-        @conn.query("DESCRIBE #@name").each do |row|
+        @conn.query("DESCRIBE #{@name}").each do |row|
           @cols[row['Field']] = AnalyzeMySQL::Structure::Column.new(
               row['Field'], row['Type'], row['Null'],
               row['Key'], row['Default'], row['Extra']
@@ -55,8 +55,15 @@ module AnalyzeMySQL
       end
 
       def index_definition
-        @conn.query("SHOW INDEX FROM #@name").each do |row|
+        idx_list = {}
 
+        @conn.query("SHOW INDEX FROM #{@name}").each do |row|
+          if idx_list[row['Key_name']].nil?
+            idx_list[row['Key_name']] = []
+          end
+          idx = AnalyzeMySQL::Structure::Index.new(
+
+          )
         end
       end
     end

@@ -1,7 +1,9 @@
 # AnalyzeMySQL
 
+You can read [http://blog.xenji.com/2013/04/mysql-analysis-with-analyzemysql.html](http://blog.xenji.com/2013/04/mysql-analysis-with-analyzemysql.html) for a small introduction and the mission behind it.
+
 This little tool (or you might call it framework someday) intends to help with analyzing MySQL table structures.
-I've built it for trivago, who have a primary MySQL database of > 280 tables with max row counts of (roughly)
+I've built it for trivago, who have a primary MySQL database of > 230 tables with max row counts of (roughly)
 100,000,000 for the bigger tables.
 
 AnalyzeMySQL (ams) tends to help by objectifying the tables data structure and handling it via an API to every
